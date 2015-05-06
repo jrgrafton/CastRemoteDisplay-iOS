@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9A039B44-E644-4D94-810A-F72DC0B54A38</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Loop</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>334EBF9BDBEAB892B60B595CB8A79220945EA52A</key>
+		<string>sso://devrel/samples/googlecast/RemoteDisplay-iOS</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Loop/Loop.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>334EBF9BDBEAB892B60B595CB8A79220945EA52A</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>sso://devrel/samples/googlecast/RemoteDisplay-iOS</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>334EBF9BDBEAB892B60B595CB8A79220945EA52A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>334EBF9BDBEAB892B60B595CB8A79220945EA52A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RemoteDisplay-iOS</string>
+		</dict>
+	</array>
+</dict>
+</plist>
