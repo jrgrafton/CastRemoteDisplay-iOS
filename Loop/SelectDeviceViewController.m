@@ -58,7 +58,7 @@ static NSString * const kShowBeatsSegue = @"showBeats";
   // Selected a device, pass it through to the connection logic.
   // TODO: Add it to the CastRemoteDisplayManager connection
   // TODO: Check the indexpath is still valid.
-  //[CastRemoteDisplayManager sharedInstance].device = _scanner.devices[indexPath.row];
+  [CastRemoteDisplayManager sharedInstance].device = _scanner.devices[indexPath.row];
   [self performSegueWithIdentifier:kShowBeatsSegue sender:self];
 
 }

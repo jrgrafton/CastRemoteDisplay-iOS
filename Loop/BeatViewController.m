@@ -150,8 +150,6 @@ static const NSInteger kTimeSignature = 4;
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-    // TODO(ianbarber): Remove
-  [self setupAudio];
 
   self.running = YES;
   // TODO(ianbarber): Could/should we replace with NSTimer?
@@ -187,14 +185,13 @@ static const NSInteger kTimeSignature = 4;
                                     const AudioTimeStamp     *time,
                                     UInt32                    frames,
                                     AudioBufferList          *audio) {
-                                    // Do something with 'audio'
-//                                    GCKRemoteDisplaySession *session =
-//                                        [CastRemoteDisplayManager sharedInstance].session;
-//                                    if (audio && session) {
-//                                      [session enqueueAudioBuffer:audio
-//                                                           frames:frames
-//                                                              pts:time];
-//                                    }
+                                    GCKRemoteDisplaySession *session =
+                                        [CastRemoteDisplayManager sharedInstance].session;
+                                    if (audio && session) {
+                                      [session enqueueAudioBuffer:audio
+                                                           frames:frames
+                                                              pts:time];
+                                    }
                                   }];
   [self.audioController addOutputReceiver:receiver];
 
