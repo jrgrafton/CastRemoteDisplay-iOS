@@ -1,0 +1,458 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0FBB95BFC6A585D254DC34B6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0DA743935C7A25B7216C8B /* libPods.a */; };
+		6B1A29161A69A246006E8DE6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A28F21A69A246006E8DE6 /* AppDelegate.m */; };
+		6B1A29171A69A246006E8DE6 /* CastDevicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A28F41A69A246006E8DE6 /* CastDevicesTableViewController.m */; };
+		6B1A29181A69A246006E8DE6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A28F61A69A246006E8DE6 /* main.m */; };
+		6B1A29191A69A246006E8DE6 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A28F81A69A246006E8DE6 /* RootViewController.m */; };
+		6B1A291A1A69A246006E8DE6 /* CastDevices.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B1A28FA1A69A246006E8DE6 /* CastDevices.storyboard */; };
+		6B1A291C1A69A246006E8DE6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B1A28FE1A69A246006E8DE6 /* Main.storyboard */; };
+		6B1A291D1A69A246006E8DE6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B1A29001A69A246006E8DE6 /* Images.xcassets */; };
+		6B1A291F1A69A246006E8DE6 /* CubeRendering.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A29031A69A246006E8DE6 /* CubeRendering.cc */; };
+		6B1A29221A69A246006E8DE6 /* CastGLES2ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A29091A69A246006E8DE6 /* CastGLES2ViewController.mm */; };
+		6B1A29231A69A246006E8DE6 /* Lambert.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 6B1A290A1A69A246006E8DE6 /* Lambert.fsh */; };
+		6B1A29241A69A246006E8DE6 /* Lambert.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 6B1A290B1A69A246006E8DE6 /* Lambert.vsh */; };
+		6B1A29261A69A246006E8DE6 /* CastMetalViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A290F1A69A246006E8DE6 /* CastMetalViewController.mm */; };
+		6B1A29271A69A246006E8DE6 /* Lambert.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A29101A69A246006E8DE6 /* Lambert.metal */; };
+		6B1A29281A69A246006E8DE6 /* MetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A29121A69A246006E8DE6 /* MetalView.m */; };
+		6B26B27D1A84200100894BAC /* CastAudioAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B26B27C1A84200100894BAC /* CastAudioAlert.m */; };
+		6B4DDFE71A7717AE00ADD562 /* CastRemoteDisplaySupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B4DDFE61A7717AE00ADD562 /* CastRemoteDisplaySupport.m */; };
+		6BE301521B054255008EAAB9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BE301511B054255008EAAB9 /* LaunchScreen.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3211CBB60FFF7A29234D0C73 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		4E0DA743935C7A25B7216C8B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B1A28F11A69A246006E8DE6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6B1A28F21A69A246006E8DE6 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6B1A28F31A69A246006E8DE6 /* CastDevicesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CastDevicesTableViewController.h; sourceTree = "<group>"; };
+		6B1A28F41A69A246006E8DE6 /* CastDevicesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CastDevicesTableViewController.m; sourceTree = "<group>"; };
+		6B1A28F51A69A246006E8DE6 /* CastRemoteDisplaySupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CastRemoteDisplaySupport.h; sourceTree = "<group>"; };
+		6B1A28F61A69A246006E8DE6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../App/main.m; sourceTree = "<group>"; };
+		6B1A28F71A69A246006E8DE6 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		6B1A28F81A69A246006E8DE6 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		6B1A28FB1A69A246006E8DE6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CastDevices.storyboard; sourceTree = "<group>"; };
+		6B1A28FF1A69A246006E8DE6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6B1A29001A69A246006E8DE6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6B1A29011A69A246006E8DE6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B1A29031A69A246006E8DE6 /* CubeRendering.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CubeRendering.cc; sourceTree = "<group>"; };
+		6B1A29041A69A246006E8DE6 /* CubeRendering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeRendering.h; sourceTree = "<group>"; };
+		6B1A29081A69A246006E8DE6 /* CastGLES2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CastGLES2ViewController.h; sourceTree = "<group>"; };
+		6B1A29091A69A246006E8DE6 /* CastGLES2ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CastGLES2ViewController.mm; sourceTree = "<group>"; };
+		6B1A290A1A69A246006E8DE6 /* Lambert.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Lambert.fsh; sourceTree = "<group>"; };
+		6B1A290B1A69A246006E8DE6 /* Lambert.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Lambert.vsh; sourceTree = "<group>"; };
+		6B1A290E1A69A246006E8DE6 /* CastMetalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CastMetalViewController.h; sourceTree = "<group>"; };
+		6B1A290F1A69A246006E8DE6 /* CastMetalViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CastMetalViewController.mm; sourceTree = "<group>"; };
+		6B1A29101A69A246006E8DE6 /* Lambert.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Lambert.metal; sourceTree = "<group>"; };
+		6B1A29111A69A246006E8DE6 /* MetalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalView.h; sourceTree = "<group>"; };
+		6B1A29121A69A246006E8DE6 /* MetalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetalView.m; sourceTree = "<group>"; };
+		6B26B27B1A84200100894BAC /* CastAudioAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CastAudioAlert.h; sourceTree = "<group>"; };
+		6B26B27C1A84200100894BAC /* CastAudioAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CastAudioAlert.m; sourceTree = "<group>"; };
+		6B2DE9711A3FB413002E759D /* CastRemoteDisplayDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CastRemoteDisplayDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B4DDFE61A7717AE00ADD562 /* CastRemoteDisplaySupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CastRemoteDisplaySupport.m; sourceTree = "<group>"; };
+		6BE301511B054255008EAAB9 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		CF7012FB4DCF97B15BCE4E67 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6B2DE96E1A3FB413002E759D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0FBB95BFC6A585D254DC34B6 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6B1A28F01A69A246006E8DE6 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				6B1A29021A69A246006E8DE6 /* Views */,
+				6B26B27A1A84200100894BAC /* Audio */,
+				6B1A28F11A69A246006E8DE6 /* AppDelegate.h */,
+				6B1A28F21A69A246006E8DE6 /* AppDelegate.m */,
+				6B1A28F31A69A246006E8DE6 /* CastDevicesTableViewController.h */,
+				6B1A28F41A69A246006E8DE6 /* CastDevicesTableViewController.m */,
+				6B1A28F51A69A246006E8DE6 /* CastRemoteDisplaySupport.h */,
+				6B4DDFE61A7717AE00ADD562 /* CastRemoteDisplaySupport.m */,
+				6B1A28F71A69A246006E8DE6 /* RootViewController.h */,
+				6B1A28F81A69A246006E8DE6 /* RootViewController.m */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		6B1A28F91A69A246006E8DE6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6B1A28F61A69A246006E8DE6 /* main.m */,
+				6B1A28FA1A69A246006E8DE6 /* CastDevices.storyboard */,
+				6B1A29001A69A246006E8DE6 /* Images.xcassets */,
+				6B1A29011A69A246006E8DE6 /* Info.plist */,
+				6BE301511B054255008EAAB9 /* LaunchScreen.xib */,
+				6B1A28FE1A69A246006E8DE6 /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6B1A29021A69A246006E8DE6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6B1A29031A69A246006E8DE6 /* CubeRendering.cc */,
+				6B1A29041A69A246006E8DE6 /* CubeRendering.h */,
+				6B1A29051A69A246006E8DE6 /* GLES2 */,
+				6B1A290C1A69A246006E8DE6 /* Metal */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6B1A29051A69A246006E8DE6 /* GLES2 */ = {
+			isa = PBXGroup;
+			children = (
+				6B1A29081A69A246006E8DE6 /* CastGLES2ViewController.h */,
+				6B1A29091A69A246006E8DE6 /* CastGLES2ViewController.mm */,
+				6B1A290A1A69A246006E8DE6 /* Lambert.fsh */,
+				6B1A290B1A69A246006E8DE6 /* Lambert.vsh */,
+			);
+			path = GLES2;
+			sourceTree = "<group>";
+		};
+		6B1A290C1A69A246006E8DE6 /* Metal */ = {
+			isa = PBXGroup;
+			children = (
+				6B1A290E1A69A246006E8DE6 /* CastMetalViewController.h */,
+				6B1A290F1A69A246006E8DE6 /* CastMetalViewController.mm */,
+				6B1A29101A69A246006E8DE6 /* Lambert.metal */,
+				6B1A29111A69A246006E8DE6 /* MetalView.h */,
+				6B1A29121A69A246006E8DE6 /* MetalView.m */,
+			);
+			path = Metal;
+			sourceTree = "<group>";
+		};
+		6B26B27A1A84200100894BAC /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				6B26B27B1A84200100894BAC /* CastAudioAlert.h */,
+				6B26B27C1A84200100894BAC /* CastAudioAlert.m */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		6B2DE9681A3FB413002E759D = {
+			isa = PBXGroup;
+			children = (
+				6B1A28F01A69A246006E8DE6 /* App */,
+				6B1A28F91A69A246006E8DE6 /* Resources */,
+				6B4A03A91A5F6AF900E4DA9F /* Frameworks */,
+				6B2DE9721A3FB413002E759D /* Products */,
+				FDE83BB1917479F3B2A7F801 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		6B2DE9721A3FB413002E759D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6B2DE9711A3FB413002E759D /* CastRemoteDisplayDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6B4A03A91A5F6AF900E4DA9F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4E0DA743935C7A25B7216C8B /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FDE83BB1917479F3B2A7F801 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CF7012FB4DCF97B15BCE4E67 /* Pods.debug.xcconfig */,
+				3211CBB60FFF7A29234D0C73 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6B2DE9701A3FB413002E759D /* CastRemoteDisplayDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6B2DE9941A3FB413002E759D /* Build configuration list for PBXNativeTarget "CastRemoteDisplayDemo" */;
+			buildPhases = (
+				11672A5B3C483AA91EE6443A /* Check Pods Manifest.lock */,
+				6B2DE96D1A3FB413002E759D /* Sources */,
+				6B2DE96E1A3FB413002E759D /* Frameworks */,
+				6B2DE96F1A3FB413002E759D /* Resources */,
+				387AE1DB6A402214182DF4CF /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CastRemoteDisplayDemo;
+			productName = CastRemoteDisplayDemo;
+			productReference = 6B2DE9711A3FB413002E759D /* CastRemoteDisplayDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6B2DE9691A3FB413002E759D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Google Inc.";
+				TargetAttributes = {
+					6B2DE9701A3FB413002E759D = {
+						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = EQHXZ8M8AV;
+					};
+				};
+			};
+			buildConfigurationList = 6B2DE96C1A3FB413002E759D /* Build configuration list for PBXProject "CastRemoteDisplayDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6B2DE9681A3FB413002E759D;
+			productRefGroup = 6B2DE9721A3FB413002E759D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6B2DE9701A3FB413002E759D /* CastRemoteDisplayDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6B2DE96F1A3FB413002E759D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B1A291C1A69A246006E8DE6 /* Main.storyboard in Resources */,
+				6B1A29231A69A246006E8DE6 /* Lambert.fsh in Resources */,
+				6B1A291D1A69A246006E8DE6 /* Images.xcassets in Resources */,
+				6BE301521B054255008EAAB9 /* LaunchScreen.xib in Resources */,
+				6B1A29241A69A246006E8DE6 /* Lambert.vsh in Resources */,
+				6B1A291A1A69A246006E8DE6 /* CastDevices.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		11672A5B3C483AA91EE6443A /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		387AE1DB6A402214182DF4CF /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6B2DE96D1A3FB413002E759D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B1A29171A69A246006E8DE6 /* CastDevicesTableViewController.m in Sources */,
+				6B1A29221A69A246006E8DE6 /* CastGLES2ViewController.mm in Sources */,
+				6B1A29181A69A246006E8DE6 /* main.m in Sources */,
+				6B4DDFE71A7717AE00ADD562 /* CastRemoteDisplaySupport.m in Sources */,
+				6B1A291F1A69A246006E8DE6 /* CubeRendering.cc in Sources */,
+				6B1A29281A69A246006E8DE6 /* MetalView.m in Sources */,
+				6B26B27D1A84200100894BAC /* CastAudioAlert.m in Sources */,
+				6B1A29191A69A246006E8DE6 /* RootViewController.m in Sources */,
+				6B1A29161A69A246006E8DE6 /* AppDelegate.m in Sources */,
+				6B1A29271A69A246006E8DE6 /* Lambert.metal in Sources */,
+				6B1A29261A69A246006E8DE6 /* CastMetalViewController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6B1A28FA1A69A246006E8DE6 /* CastDevices.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6B1A28FB1A69A246006E8DE6 /* Base */,
+			);
+			name = CastDevices.storyboard;
+			sourceTree = "<group>";
+		};
+		6B1A28FE1A69A246006E8DE6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6B1A28FF1A69A246006E8DE6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6B2DE9921A3FB413002E759D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6B2DE9931A3FB413002E759D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6B2DE9951A3FB413002E759D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF7012FB4DCF97B15BCE4E67 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "$(SOURCE_ROOT)/Views/Metal/*";
+				INFOPLIST_FILE = Resources/Info.plist;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6B2DE9961A3FB413002E759D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3211CBB60FFF7A29234D0C73 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "$(SOURCE_ROOT)/Views/Metal/*";
+				INFOPLIST_FILE = Resources/Info.plist;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6B2DE96C1A3FB413002E759D /* Build configuration list for PBXProject "CastRemoteDisplayDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B2DE9921A3FB413002E759D /* Debug */,
+				6B2DE9931A3FB413002E759D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6B2DE9941A3FB413002E759D /* Build configuration list for PBXNativeTarget "CastRemoteDisplayDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B2DE9951A3FB413002E759D /* Debug */,
+				6B2DE9961A3FB413002E759D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6B2DE9691A3FB413002E759D /* Project object */;
+}
