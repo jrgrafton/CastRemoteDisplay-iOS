@@ -19,5 +19,9 @@
 extern NSString* const CastRemoteDisplayAvailableNotification;
 
 @protocol CastRemoteDisplayDemoController
+/**
+ *  The current GCKRemoteDisplaySession, to be used for sending audio and video 
+ *  frames to the cast device.
+ */
 @property(nonatomic, weak) GCKRemoteDisplaySession* castRemoteDisplaySession;
 @end

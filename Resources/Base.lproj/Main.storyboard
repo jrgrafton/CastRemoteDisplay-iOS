@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="aL7-PU-PVp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s2b-eb-sJn">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Metal-->
@@ -14,7 +15,7 @@
                         <viewControllerLayoutGuide type="bottom" id="b5Y-vB-QQg"/>
                     </layoutGuides>
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="bjg-Yt-cxl" customClass="MetalView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -33,7 +34,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Xsd-2s-4wI"/>
                     </layoutGuides>
                     <glkView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" drawableDepthFormat="24" enableSetNeedsDisplay="NO" id="lau-Ji-3WY">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>
                             <outlet property="delegate" destination="xRH-IF-l2B" id="ebT-kV-t8y"/>
@@ -45,11 +46,74 @@
             </objects>
             <point key="canvasLocation" x="977" y="43"/>
         </scene>
+        <!--Initial View Controller-->
+        <scene sceneID="6oc-5l-of6">
+            <objects>
+                <viewController id="s2b-eb-sJn" customClass="InitialViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IDR-rS-ynj"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jp4-lI-QoG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="srB-XP-Yer">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="hoP-UI-FqJ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cast Remote Display Demo" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9D8-en-t5t">
+                                <rect key="frame" x="36" y="226" width="342" height="84"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEy-1e-xaq">
+                                <rect key="frame" x="146" y="512" width="123" height="22"/>
+                                <state key="normal" title="  PLAY" image="cast_on">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapPlay:" destination="s2b-eb-sJn" eventType="touchUpInside" id="U3t-ez-PTw"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cI2-Er-FRE">
+                                <rect key="frame" x="189" y="506" width="37" height="37"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="9D8-en-t5t" secondAttribute="trailing" constant="20" id="0Nk-Ps-BGM"/>
+                            <constraint firstAttribute="centerX" secondItem="sEy-1e-xaq" secondAttribute="centerX" id="0Xl-YW-D6p"/>
+                            <constraint firstItem="cI2-Er-FRE" firstAttribute="centerY" secondItem="sEy-1e-xaq" secondAttribute="centerY" constant="1" id="2ji-au-FvF"/>
+                            <constraint firstAttribute="centerY" secondItem="9D8-en-t5t" secondAttribute="centerY" constant="100" id="3n7-a8-MNd"/>
+                            <constraint firstItem="hoP-UI-FqJ" firstAttribute="leading" secondItem="srB-XP-Yer" secondAttribute="leading" id="9iX-5h-2bD"/>
+                            <constraint firstAttribute="centerX" secondItem="9D8-en-t5t" secondAttribute="centerX" id="CY9-Po-wnU"/>
+                            <constraint firstAttribute="trailing" secondItem="hoP-UI-FqJ" secondAttribute="trailing" id="Doh-Id-ahC"/>
+                            <constraint firstItem="sEy-1e-xaq" firstAttribute="top" secondItem="9D8-en-t5t" secondAttribute="top" constant="286" id="FuD-Ra-g6B"/>
+                            <constraint firstItem="hoP-UI-FqJ" firstAttribute="top" secondItem="srB-XP-Yer" secondAttribute="top" id="O2w-rO-WEf"/>
+                            <constraint firstAttribute="centerX" secondItem="cI2-Er-FRE" secondAttribute="centerX" id="Utf-y8-QUS"/>
+                            <constraint firstItem="9D8-en-t5t" firstAttribute="leading" secondItem="srB-XP-Yer" secondAttribute="leadingMargin" constant="20" id="nfM-Rv-bhh"/>
+                            <constraint firstItem="Jp4-lI-QoG" firstAttribute="top" secondItem="hoP-UI-FqJ" secondAttribute="bottom" id="oYy-vS-4Ta"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="cI2-Er-FRE" id="sgL-iF-nwD"/>
+                        <outlet property="playButton" destination="sEy-1e-xaq" id="lVp-fh-VJ9"/>
+                        <segue destination="aL7-PU-PVp" kind="show" identifier="showCube" id="K1X-e4-4oG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X8b-Db-D9u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-340" y="236"/>
+        </scene>
         <!--Root View Controller-->
         <scene sceneID="SgP-9x-P8a">
             <objects>
                 <tabBarController id="aL7-PU-PVp" customClass="RootViewController" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="1yz-vT-3QK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -62,7 +126,11 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QL5-LE-TE2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="157" y="357"/>
+            <point key="canvasLocation" x="329" y="236"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="360" height="640"/>
+        <image name="cast_on" width="29" height="22"/>
+    </resources>
 </document>

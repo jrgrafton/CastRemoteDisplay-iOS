@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		0FBB95BFC6A585D254DC34B6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E0DA743935C7A25B7216C8B /* libPods.a */; };
 		6B1A29161A69A246006E8DE6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A28F21A69A246006E8DE6 /* AppDelegate.m */; };
-		6B1A29171A69A246006E8DE6 /* CastDevicesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A28F41A69A246006E8DE6 /* CastDevicesTableViewController.m */; };
 		6B1A29181A69A246006E8DE6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A28F61A69A246006E8DE6 /* main.m */; };
 		6B1A29191A69A246006E8DE6 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A28F81A69A246006E8DE6 /* RootViewController.m */; };
-		6B1A291A1A69A246006E8DE6 /* CastDevices.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B1A28FA1A69A246006E8DE6 /* CastDevices.storyboard */; };
 		6B1A291C1A69A246006E8DE6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B1A28FE1A69A246006E8DE6 /* Main.storyboard */; };
 		6B1A291D1A69A246006E8DE6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B1A29001A69A246006E8DE6 /* Images.xcassets */; };
 		6B1A291F1A69A246006E8DE6 /* CubeRendering.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A29031A69A246006E8DE6 /* CubeRendering.cc */; };
@@ -25,6 +23,12 @@
 		6B26B27D1A84200100894BAC /* CastAudioAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B26B27C1A84200100894BAC /* CastAudioAlert.m */; };
 		6B4DDFE71A7717AE00ADD562 /* CastRemoteDisplaySupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B4DDFE61A7717AE00ADD562 /* CastRemoteDisplaySupport.m */; };
 		6BE301521B054255008EAAB9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BE301511B054255008EAAB9 /* LaunchScreen.xib */; };
+		EF1013F51B0E71A7008417E9 /* CastComponents.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF1013EE1B0E71A7008417E9 /* CastComponents.storyboard */; };
+		EF1013F71B0E71A7008417E9 /* ChromecastDeviceController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF1013F21B0E71A7008417E9 /* ChromecastDeviceController.m */; };
+		EF1013F81B0E71A7008417E9 /* DeviceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF1013F41B0E71A7008417E9 /* DeviceTableViewController.m */; };
+		EF1013FB1B0E78EF008417E9 /* CastFrameworkAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF1013FA1B0E78EF008417E9 /* CastFrameworkAssets.xcassets */; };
+		EF1013FE1B0E7E2D008417E9 /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF1013FD1B0E7E2D008417E9 /* InitialViewController.m */; };
+		EFB1CF771B0EAC1600AC2560 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFB1CF761B0EAC1600AC2560 /* GLKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,13 +36,10 @@
 		4E0DA743935C7A25B7216C8B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B1A28F11A69A246006E8DE6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6B1A28F21A69A246006E8DE6 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6B1A28F31A69A246006E8DE6 /* CastDevicesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CastDevicesTableViewController.h; sourceTree = "<group>"; };
-		6B1A28F41A69A246006E8DE6 /* CastDevicesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CastDevicesTableViewController.m; sourceTree = "<group>"; };
 		6B1A28F51A69A246006E8DE6 /* CastRemoteDisplaySupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CastRemoteDisplaySupport.h; sourceTree = "<group>"; };
 		6B1A28F61A69A246006E8DE6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../App/main.m; sourceTree = "<group>"; };
 		6B1A28F71A69A246006E8DE6 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		6B1A28F81A69A246006E8DE6 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		6B1A28FB1A69A246006E8DE6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CastDevices.storyboard; sourceTree = "<group>"; };
 		6B1A28FF1A69A246006E8DE6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6B1A29001A69A246006E8DE6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6B1A29011A69A246006E8DE6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -59,6 +60,15 @@
 		6B4DDFE61A7717AE00ADD562 /* CastRemoteDisplaySupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CastRemoteDisplaySupport.m; sourceTree = "<group>"; };
 		6BE301511B054255008EAAB9 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		CF7012FB4DCF97B15BCE4E67 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		EF1013EE1B0E71A7008417E9 /* CastComponents.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CastComponents.storyboard; sourceTree = "<group>"; };
+		EF1013F11B0E71A7008417E9 /* ChromecastDeviceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChromecastDeviceController.h; sourceTree = "<group>"; };
+		EF1013F21B0E71A7008417E9 /* ChromecastDeviceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChromecastDeviceController.m; sourceTree = "<group>"; };
+		EF1013F31B0E71A7008417E9 /* DeviceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceTableViewController.h; sourceTree = "<group>"; };
+		EF1013F41B0E71A7008417E9 /* DeviceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceTableViewController.m; sourceTree = "<group>"; };
+		EF1013FA1B0E78EF008417E9 /* CastFrameworkAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = CastFrameworkAssets.xcassets; path = "../Pods/google-cast-sdk/GoogleCastSDK-2.7.0-Release/CastFrameworkAssets.xcassets"; sourceTree = "<group>"; };
+		EF1013FC1B0E7E2D008417E9 /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialViewController.h; sourceTree = "<group>"; };
+		EF1013FD1B0E7E2D008417E9 /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
+		EFB1CF761B0EAC1600AC2560 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFB1CF771B0EAC1600AC2560 /* GLKit.framework in Frameworks */,
 				0FBB95BFC6A585D254DC34B6 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,16 +87,17 @@
 		6B1A28F01A69A246006E8DE6 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				EF1013ED1B0E6F98008417E9 /* Components */,
 				6B1A29021A69A246006E8DE6 /* Views */,
 				6B26B27A1A84200100894BAC /* Audio */,
 				6B1A28F11A69A246006E8DE6 /* AppDelegate.h */,
 				6B1A28F21A69A246006E8DE6 /* AppDelegate.m */,
-				6B1A28F31A69A246006E8DE6 /* CastDevicesTableViewController.h */,
-				6B1A28F41A69A246006E8DE6 /* CastDevicesTableViewController.m */,
 				6B1A28F51A69A246006E8DE6 /* CastRemoteDisplaySupport.h */,
 				6B4DDFE61A7717AE00ADD562 /* CastRemoteDisplaySupport.m */,
 				6B1A28F71A69A246006E8DE6 /* RootViewController.h */,
 				6B1A28F81A69A246006E8DE6 /* RootViewController.m */,
+				EF1013FC1B0E7E2D008417E9 /* InitialViewController.h */,
+				EF1013FD1B0E7E2D008417E9 /* InitialViewController.m */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -93,8 +105,9 @@
 		6B1A28F91A69A246006E8DE6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EF1013FA1B0E78EF008417E9 /* CastFrameworkAssets.xcassets */,
+				EF1013F91B0E755E008417E9 /* Images */,
 				6B1A28F61A69A246006E8DE6 /* main.m */,
-				6B1A28FA1A69A246006E8DE6 /* CastDevices.storyboard */,
 				6B1A29001A69A246006E8DE6 /* Images.xcassets */,
 				6B1A29011A69A246006E8DE6 /* Info.plist */,
 				6BE301511B054255008EAAB9 /* LaunchScreen.xib */,
@@ -168,9 +181,29 @@
 		6B4A03A91A5F6AF900E4DA9F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EFB1CF761B0EAC1600AC2560 /* GLKit.framework */,
 				4E0DA743935C7A25B7216C8B /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EF1013ED1B0E6F98008417E9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				EF1013EE1B0E71A7008417E9 /* CastComponents.storyboard */,
+				EF1013F11B0E71A7008417E9 /* ChromecastDeviceController.h */,
+				EF1013F21B0E71A7008417E9 /* ChromecastDeviceController.m */,
+				EF1013F31B0E71A7008417E9 /* DeviceTableViewController.h */,
+				EF1013F41B0E71A7008417E9 /* DeviceTableViewController.m */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		EF1013F91B0E755E008417E9 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		FDE83BB1917479F3B2A7F801 /* Pods */ = {
@@ -246,8 +279,9 @@
 				6B1A29231A69A246006E8DE6 /* Lambert.fsh in Resources */,
 				6B1A291D1A69A246006E8DE6 /* Images.xcassets in Resources */,
 				6BE301521B054255008EAAB9 /* LaunchScreen.xib in Resources */,
+				EF1013FB1B0E78EF008417E9 /* CastFrameworkAssets.xcassets in Resources */,
 				6B1A29241A69A246006E8DE6 /* Lambert.vsh in Resources */,
-				6B1A291A1A69A246006E8DE6 /* CastDevices.storyboard in Resources */,
+				EF1013F51B0E71A7008417E9 /* CastComponents.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,10 +325,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B1A29171A69A246006E8DE6 /* CastDevicesTableViewController.m in Sources */,
+				EF1013F81B0E71A7008417E9 /* DeviceTableViewController.m in Sources */,
 				6B1A29221A69A246006E8DE6 /* CastGLES2ViewController.mm in Sources */,
 				6B1A29181A69A246006E8DE6 /* main.m in Sources */,
 				6B4DDFE71A7717AE00ADD562 /* CastRemoteDisplaySupport.m in Sources */,
+				EF1013F71B0E71A7008417E9 /* ChromecastDeviceController.m in Sources */,
+				EF1013FE1B0E7E2D008417E9 /* InitialViewController.m in Sources */,
 				6B1A291F1A69A246006E8DE6 /* CubeRendering.cc in Sources */,
 				6B1A29281A69A246006E8DE6 /* MetalView.m in Sources */,
 				6B26B27D1A84200100894BAC /* CastAudioAlert.m in Sources */,
@@ -308,14 +344,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		6B1A28FA1A69A246006E8DE6 /* CastDevices.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6B1A28FB1A69A246006E8DE6 /* Base */,
-			);
-			name = CastDevices.storyboard;
-			sourceTree = "<group>";
-		};
 		6B1A28FE1A69A246006E8DE6 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -414,6 +442,7 @@
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "$(SOURCE_ROOT)/Views/Metal/*";
 				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -427,6 +456,7 @@
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = "$(SOURCE_ROOT)/Views/Metal/*";
 				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

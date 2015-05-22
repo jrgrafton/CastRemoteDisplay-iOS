@@ -13,15 +13,22 @@
 // limitations under the License.
 
 #import "AppDelegate.h"
+#import "ChromecastDeviceController.h"
+#import "CastRemoteDisplaySupport.h"
 
 #import <GoogleCastRemoteDisplay/GCKRemoteDisplayChannel.h>
-
-#import "CastRemoteDisplaySupport.h"
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(UIApplication*)application {
+  [[ChromecastDeviceController sharedInstance] enableLogging];
+  // Set the receiver application ID to initialise scanning.
+  // TODO(ianbarber): Remove before release to encourage registering own app.
+  [ChromecastDeviceController sharedInstance].applicationID = @"C01EB1F7";
+
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    // Test whether we can use remote display. Because this may take some time,
+    // we make the call asynchronously with the rest of the app initialization.
     BOOL remoteDisplayAvailable = [GCKRemoteDisplayChannel isRemoteDisplaySupported];
     NSLog(@"Cast Remote Display is %@", (remoteDisplayAvailable) ? @"supported" : @"not supported");
 
