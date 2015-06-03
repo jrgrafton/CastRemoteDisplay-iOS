@@ -1,37 +1,41 @@
 //
-//  Copyright (c) Google Inc.
+// Copyright 2015 Google Inc. All Rights Reserved.
 //
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-//  http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 //
-
 #import "CastGLES2ViewController.h"
+#import "CubeRendering.h"
 
-#import <algorithm>
-
-#import <GLKit/GLKView.h>
+#import <GLKit/GLKit.h>
+#import <GoogleCastRemoteDisplay/GoogleCastRemoteDisplay.h>
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
-
-#import <GoogleCastRemoteDisplay/GoogleCastRemoteDisplay.h>
-
-#import "CubeRendering.h"
+#import <algorithm>
 
 using namespace simd;
 using namespace cube_rendering;
 
 namespace {
 
-GLuint LoadProgram(NSString* name, NSArray* bindings) {
+/**
+ *  Load and compile a vertext and fragment shader, and return a GL program.
+ *
+ *  @param name     String shader file name
+ *  @param bindings Attributes to bind - values for the shader.
+ *
+ *  @return GLprogram representing the shader
+ */
+GLuint LoadProgram(NSString* name, NSDictionary* bindings) {
   const char* shaderSources[1];
   GLint shaderLengths[1];
 
@@ -54,8 +58,8 @@ GLuint LoadProgram(NSString* name, NSArray* bindings) {
   GLuint program = glCreateProgram();
   glAttachShader(program, vertexShader);
   glAttachShader(program, fragmentShader);
-  for (GLuint i = 0, end = (GLuint)bindings.count; i < end; ++i) {
-    glBindAttribLocation(program, i, [bindings[i] UTF8String]);
+  for (NSNumber *key in bindings) {
+    glBindAttribLocation(program, [key unsignedIntValue], [bindings[key] UTF8String]);
   }
   glLinkProgram(program);
 
@@ -67,91 +71,70 @@ GLuint LoadProgram(NSString* name, NSArray* bindings) {
 
 }  // namespace
 
-@implementation CastGLES2ViewController {
-  // layer
-  BOOL _layerSizeDidUpdate;
 
-  // controller
+/**
+ *  The OpenGL ES Cast renderer. Displays a 3d spinning cube on the Cast remote display,
+ *  and a simple output on the local display. See the Cast Rendering mark for the Cast specific
+ *  code.
+ */
+@implementation CastGLES2ViewController {
+  // Has the layer sized changed.
+  BOOL _layerSizeDidUpdate;
+  // Has the default color changed.
+  BOOL _colorChanged;
+
+  // Controller
   int _mvpMatLocation;
   int _normalMatLocation;
+  int _ambientColorLocation;
 
-  // renderer
-  EAGLContext* _context;
+  // Renderer
   GLuint _vertexBuffer;
   GLuint _vertexArray;
   GLuint _program;
+  GLuint _textureBGRA;
+  GLuint _depthRenderBuffer;
+  GLuint _frameBuffer;
 
-  // common uniforms
+  // Uniforms
+  Uniforms _uniforms;
+  float4x4 _projectionMatrix;
   float4x4 _viewMatrix;
   float4x4 _modelviewMatrix;
   float _rotation;
 
-  // uniforms
-  float4x4 _projectionMatrix;
-  Uniforms _uniforms;
-
-  // CAST
+  // The Cast frame input for OpenGL ES. This is used to send data to be displayed remotely.
   GCKOpenGLESVideoFrameInput* _castInput;
 
-  GLuint _castBGRATex;
-  GLuint _castDepthRb;
-  GLuint _castFramebuffer;
-
-  float4x4 _castProjectionMatrix;
-  Uniforms _castUniforms;
+  // Context and image for local display.
+  EAGLContext* _context;
+  CIContext *_cicontext;
+  CIImage *_bgImage;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
 
-  [self _setupGLES];
-  [self _loadAssets];
+  // Setup the basic GLES context.
+  [self setupGLESContext];
+
+  // Load the GL assets for local usage.
+  [self loadAssets];
+
+  // Prepare for Cast if we have a session.
+  if (self.castRemoteDisplaySession) {
+    [self prepareGLESForCast:self.castRemoteDisplaySession];
+  }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
   [(GLKView*)self.view deleteDrawable];
   ((GLKView*)self.view).context = nil;
 
-  [EAGLContext setCurrentContext:_context];
-
-  [self _teardownGLESForCast];
-
-  _rotation = 0;
-
-  glDeleteProgram(_program);
-  glDeleteVertexArraysOES(1, &_vertexArray);
-  glDeleteBuffers(1, &_vertexBuffer);
-
-  [EAGLContext setCurrentContext:nil];
-  _context = nil;
+  [self teardownGLESForCast];
+  [self teardownGLESLocal];
 
   [super viewDidDisappear:animated];
-}
-
-- (void)_setupGLES {
-  _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-  [EAGLContext setCurrentContext:_context];
-  ((GLKView*)self.view).context = _context;
-}
-
-- (void)_loadAssets {
-  // Setup the vertex buffers.
-  glGenBuffers(1, &_vertexBuffer);
-  glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(gCubeVertices), gCubeVertices, GL_STATIC_DRAW);
-
-  glGenVertexArraysOES(1, &_vertexArray);
-  glBindVertexArrayOES(_vertexArray);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-  glEnableVertexAttribArray(0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)sizeof(Vertex::position));
-  glEnableVertexAttribArray(1);
-
-  // Load the lambert shading program.
-  _program = LoadProgram(@"Lambert", @[ @"position", @"normal" ]);
-
-  _mvpMatLocation = glGetUniformLocation(_program, "u_mvp_mat");
-  _normalMatLocation = glGetUniformLocation(_program, "u_normal_mat");
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -163,158 +146,214 @@ GLuint LoadProgram(NSString* name, NSArray* bindings) {
   [super viewDidLayoutSubviews];
 }
 
+
+- (IBAction)didTapChangeColor:(id)sender {
+  _colorChanged = !_colorChanged;
+}
+
+# pragma mark - OpenGL
+
+/**
+ *  Setup the basic OpenGLES environment.
+ */
+- (void)setupGLESContext {
+  _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+  [EAGLContext setCurrentContext:_context];
+  ((GLKView*)self.view).context = _context;
+}
+
+- (void)teardownGLESLocal {
+  [EAGLContext setCurrentContext:nil];
+  _context = nil;
+}
+
+/**
+ *  Update the state of the display - this is called automatically by GLKViewController.
+ */
 - (void)update {
   @autoreleasepool {
-    [EAGLContext setCurrentContext:_context];
     if (_layerSizeDidUpdate) {
-      [self _reshape];
+      [self reshape];
       _layerSizeDidUpdate = NO;
     }
-    [self _render];
+    [self render];
   }
 }
 
-- (void)_reshape {
-  auto view = self.view;
-  auto viewSize = view.bounds.size;
-
-  _viewMatrix = matrix_identity_float4x4;
-
-  float aspect = std::abs(viewSize.width / viewSize.height);
-  _projectionMatrix = matrix_from_perspective(65.0f * (M_PI / 180.0f), aspect, 0.1f, 100.0f);
-
-  // CAST
-  if (_castInput) [self _reshapeCast];
-}
-
-- (void)_render {
-  // CAST
-  if (_castInput) [self _syncAndSubmitCastFrame];
-
-  // Update the scene.
-  [self _animate];
-
-  // Update uniforms.
-  _uniforms.mvp_mat = _projectionMatrix * _modelviewMatrix;
-  _uniforms.normal_mat = inverse(transpose(_modelviewMatrix));
-
-  // CAST
+/**
+ *  Resize the view based on the dimensions changing - e.g. on rotation.
+ */
+- (void)reshape {
+  // Resize cast input if necessary.
   if (_castInput) {
-    _castUniforms.mvp_mat = _castProjectionMatrix * _modelviewMatrix;
-    _castUniforms.normal_mat = _uniforms.normal_mat;
+    [self reshapeCast];
   }
+}
+
+/**
+ *  Setup the basic 3d environment for first screen.
+ */
+- (void)loadAssets {
+  UIImage *background = [UIImage imageNamed:@"background"];
+  _bgImage = [CIImage imageWithCGImage:background.CGImage];
+  _cicontext = [CIContext contextWithEAGLContext:_context
+                                         options:@{kCIContextWorkingColorSpace : [NSNull null]} ];
+}
+
+/**
+ *  Main render function. Updates the local display, and renders the spinning cube for the
+ *  Cast remote display.
+ */
+- (void)render {
+  [EAGLContext setCurrentContext:_context];
 
   // Bind the view drawble.
   GLKView* view = (GLKView*)self.view;
   [view bindDrawable];
 
-  // Configure the render pass.
-  glUseProgram(_program);
+  // Scale the image up to the pixel size required.
+  float scale = [UIScreen mainScreen].scale;
+  CGRect destRect = CGRectApplyAffineTransform(self.view.bounds,
+                                               CGAffineTransformMakeScale(scale, scale));
+  // Render the image.
+  [_cicontext drawImage:_bgImage
+                 inRect:destRect
+               fromRect:[_bgImage extent]];
 
-  glDepthFunc(GL_LESS);
-  glDepthMask(GL_TRUE);
-  glEnable(GL_DEPTH_TEST);
-
-  glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
-  glClearDepthf(1.0f);
-
-  glBindVertexArrayOES(_vertexArray);
-
-  // Upload updated uniforms.
-  glUniformMatrix4fv(_mvpMatLocation, 1, GL_FALSE, (GLfloat*)&_uniforms.mvp_mat);
-  glUniformMatrix4fv(_normalMatLocation, 1, GL_FALSE, (GLfloat*)&_uniforms.normal_mat);
-
-  // Clear.
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  // Draw.
-  glDrawArrays(GL_TRIANGLES, 0, 36);
-
-  // CAST
-  if (_castInput) [self _renderCast];
+  // Update the Cast display.
+  if (_castInput) {
+    [self renderCast];
+  }
 }
 
-- (void)_animate {
-  auto model = matrix_from_translation(0.0f, 0.0f, 5.0f) *
-               matrix_from_rotation(_rotation, 0.0f, 1.0f, 0.0f) *
-               matrix_from_rotation(_rotation, 1.0f, 1.0f, 1.0f);
-  _modelviewMatrix = _viewMatrix * model;
-  _rotation += 0.01f;
-}
-
-#pragma mark CAST
-
-@dynamic castRemoteDisplaySession;
+#pragma mark castRemoteDisplaySession
 
 - (GCKRemoteDisplaySession*)castRemoteDisplaySession {
   return _castInput.session;
 }
 
 - (void)setCastRemoteDisplaySession:(GCKRemoteDisplaySession*)castRemoteDisplaySession {
-  if (castRemoteDisplaySession == _castInput.session) return;
+  if (castRemoteDisplaySession == _castInput.session) {
+    return;
+  }
 
-  [self _teardownGLESForCast];
+  if (_castInput) {
+    [self teardownGLESForCast];
+  }
 
-  if (castRemoteDisplaySession) [self _prepareGLESForCast:castRemoteDisplaySession];
+  if (castRemoteDisplaySession) {
+    [self prepareGLESForCast:castRemoteDisplaySession];
+  }
 }
 
-- (void)_prepareGLESForCast:(GCKRemoteDisplaySession*)session {
+# pragma mark - Cast Rendering
+
+/**
+ *  Setup the GL environment for Cast remote display output.
+ *
+ *  @param session A connected Cast Remote Display session.
+ */
+- (void)prepareGLESForCast:(GCKRemoteDisplaySession*)session {
   _castInput = [[GCKOpenGLESVideoFrameInput alloc] initWithSession:session];
   _castInput.context = _context;
 
-  [self _loadCastAssets];
+  [self loadCastAssets];
 
   _layerSizeDidUpdate = YES;
 }
 
-- (void)_loadCastAssets {
+/**
+ *  Prepare buffers for the Cast display. We set the GL context to the Cast input, and then
+ *  issue regular gl* commands.
+ */
+- (void)loadCastAssets {
   [EAGLContext setCurrentContext:_castInput.context];
 
-  glGenTextures(1, &_castBGRATex);
+  glGenBuffers(1, &_vertexBuffer);
+  glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(gCubeVertices), gCubeVertices, GL_STATIC_DRAW);
+
+  glGenVertexArraysOES(1, &_vertexArray);
+  glBindVertexArrayOES(_vertexArray);
+
+  glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+  glEnableVertexAttribArray(GLKVertexAttribPosition);
+  glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+                        (void*)sizeof(Vertex::position));
+  glEnableVertexAttribArray(GLKVertexAttribNormal);
+
+  // Load the lambert shading program.
+  _program = LoadProgram(@"Lambert", @{@(GLKVertexAttribPosition): @"position",
+                                       @(GLKVertexAttribNormal): @"normal"});
+
+  _mvpMatLocation = glGetUniformLocation(_program, "u_mvp_mat");
+  _normalMatLocation = glGetUniformLocation(_program, "u_normal_mat");
+  _ambientColorLocation = glGetUniformLocation(_program, "u_ambient_color");
+
+  glGenTextures(1, &_textureBGRA);
   glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, _castBGRATex);
+  glBindTexture(GL_TEXTURE_2D, _textureBGRA);
   glTexStorage2DEXT(GL_TEXTURE_2D, 1, GL_BGRA8_EXT, _castInput.width, _castInput.height);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-  glGenRenderbuffers(1, &_castDepthRb);
-  glBindRenderbuffer(GL_RENDERBUFFER, _castDepthRb);
+  glGenRenderbuffers(1, &_depthRenderBuffer);
+  glBindRenderbuffer(GL_RENDERBUFFER, _depthRenderBuffer);
   glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24_OES, _castInput.width,
                         _castInput.height);
 
-  glGenFramebuffers(1, &_castFramebuffer);
-  glBindFramebuffer(GL_FRAMEBUFFER, _castFramebuffer);
-  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _castBGRATex, 0);
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _castDepthRb);
+  glGenFramebuffers(1, &_frameBuffer);
+  glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _textureBGRA, 0);
+  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _depthRenderBuffer);
 }
 
-- (void)_teardownGLESForCast {
-  [EAGLContext setCurrentContext:_castInput.context];
-  glDeleteTextures(1, &_castBGRATex);
-  glDeleteRenderbuffers(1, &_castDepthRb);
-  glDeleteFramebuffers(1, &_castFramebuffer);
-  _castInput = nil;
-}
+/**
+ *  Update the rendering of the cube for the Cast display.
+ */
+- (void)renderCast {
+  // This sample app takes the strategy of calling syncAndSubmitCastFrame at the beginning of each
+  // frame to submit the previously encoded frame. This introduces a one frame delay (at least)
+  // between local rendering and what is displayed on the remote screen, but also minimizes the
+  // chance of blocking the CPU waiting for the GPU to finish processing the last frame.
+  [self syncAndSubmitCastFrame];
 
-- (void)_reshapeCast {
-  auto width = _castInput.width;
-  auto height = _castInput.height;
-  float aspect = std::abs(static_cast<float>(width) / static_cast<float>(height));
-  _castProjectionMatrix = matrix_from_perspective(65.0f * (M_PI / 180.0f), aspect, 0.1f, 100.0f);
-}
+  // Update the scene.
+  [self animateCube];
 
-- (void)_renderCast {
-  // NOTE: This demo app re-uses the program, pipeline and render pass state from the main pass.
+  // Update uniforms.
+  _uniforms.mvp_mat = _projectionMatrix * _modelviewMatrix;
+  _uniforms.normal_mat = inverse(transpose(_modelviewMatrix));
+  // Set the color.
+  if (_colorChanged) {
+    _uniforms.ambient_color = {0.24, 0.18, 0.8, 1.0};
+  } else {
+    _uniforms.ambient_color = {0.24, 0.8, 0.18, 1.0};
+  }
 
   // Bind the view drawble.
-  glBindFramebuffer(GL_FRAMEBUFFER, _castFramebuffer);
+  glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
 
   // Configure the render pass.
   glViewport(0, 0, _castInput.width, _castInput.height);
 
+  // Use the shader.
+  glUseProgram(_program);
+
+  glDepthFunc(GL_LESS);
+  glDepthMask(GL_TRUE);
+  glEnable(GL_DEPTH_TEST);
+
+  // Clear the cast display to a mid grey.
+  glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
+
   // Upload updated uniforms.
-  glUniformMatrix4fv(_mvpMatLocation, 1, GL_FALSE, (GLfloat*)&_castUniforms.mvp_mat);
-  glUniformMatrix4fv(_normalMatLocation, 1, GL_FALSE, (GLfloat*)&_castUniforms.normal_mat);
+  glUniformMatrix4fv(_mvpMatLocation, 1, GL_FALSE, (GLfloat*)&_uniforms.mvp_mat);
+  glUniformMatrix4fv(_normalMatLocation, 1, GL_FALSE, (GLfloat*)&_uniforms.normal_mat);
+  glUniform4fv(_ambientColorLocation, 1, (GLfloat*)&_uniforms.ambient_color);
+
+  // Bind the vertex arrays for drawing a cube.
+  glBindVertexArrayOES(_vertexArray);
 
   // Clear.
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -327,10 +366,52 @@ GLuint LoadProgram(NSString* name, NSArray* bindings) {
   glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, attachments);
 
   // Encode frame.
-  [_castInput encodeFrame:_castBGRATex];
+  [_castInput encodeFrame:_textureBGRA];
 }
 
-- (void)_syncAndSubmitCastFrame {
+/**
+ *  Rotate the modelviewMatrix for the cube.
+ */
+- (void)animateCube {
+  auto model = matrix_from_translation(0.0f, 0.0f, 5.0f) *
+  matrix_from_rotation(_rotation, 0.0f, 1.0f, 0.0f) *
+  matrix_from_rotation(_rotation, 1.0f, 1.0f, 1.0f);
+  _modelviewMatrix = _viewMatrix * model;
+  _rotation += 0.01f;
+}
+
+/**
+ *  Clean up the GL environment used for the Cast screen rendering.
+ */
+- (void)teardownGLESForCast {
+  [EAGLContext setCurrentContext:_castInput.context];
+  glDeleteTextures(1, &_textureBGRA);
+  glDeleteRenderbuffers(1, &_depthRenderBuffer);
+  glDeleteFramebuffers(1, &_frameBuffer);
+  glDeleteProgram(_program);
+  glDeleteVertexArraysOES(1, &_vertexArray);
+  glDeleteBuffers(1, &_vertexBuffer);
+  _rotation = 0;
+  _castInput = nil;
+}
+
+/**
+ *  Update the projection based on the dimensions of the Cast screen rendering.
+ */
+- (void)reshapeCast {
+  _viewMatrix = matrix_identity_float4x4;
+  auto width = _castInput.width;
+  auto height = _castInput.height;
+  float aspect = std::abs(static_cast<float>(width) / static_cast<float>(height));
+  _projectionMatrix = matrix_from_perspective(65.0f * (M_PI / 180.0f), aspect, 0.1f, 100.0f);
+}
+
+
+/**
+ *  Wait for the GPU to be done processing the last frame encoded by the frame input and submit
+ *  the frame for transmission to the remote display.
+ */
+- (void)syncAndSubmitCastFrame {
   [_castInput syncAndSubmitFrame];
 }
 

@@ -1,4 +1,4 @@
-// Copyright Google Inc. All Rights Reserved.
+// Copyright 2015 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -38,11 +38,6 @@
 - (GCKDeviceManager *)deviceManager;
 
 /**
- *  Dismiss the device picker.
- */
-- (void)dismissDeviceTable:(UIViewController *)sender;
-
-/**
  *  Connect to the given Cast device.
  *
  *  @param device A GCKDevice from the deviceScanner list.
@@ -52,9 +47,9 @@
 @optional
 
 /**
- *  Transition to the expanded controls view if currently playing media. 
+ * Disconnect and stop the application.
  */
-- (void)displayCurrentlyPlayingMedia;
+- (void)disconnect;
 
 @end
 

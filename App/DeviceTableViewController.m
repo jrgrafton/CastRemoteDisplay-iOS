@@ -1,4 +1,4 @@
-// Copyright Google Inc. All Rights Reserved.
+// Copyright 2015 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -188,7 +188,7 @@ static NSString * const kVersionFooter = @"v";
 }
 
 - (IBAction)disconnectDevice:(id)sender {
-  [_delegate.deviceManager disconnect];
+  [_delegate disconnect];
 
   // Dismiss the view.
   [self dismiss];

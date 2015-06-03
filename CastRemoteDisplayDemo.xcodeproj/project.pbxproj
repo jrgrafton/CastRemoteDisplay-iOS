@@ -20,7 +20,6 @@
 		6B1A29261A69A246006E8DE6 /* CastMetalViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A290F1A69A246006E8DE6 /* CastMetalViewController.mm */; };
 		6B1A29271A69A246006E8DE6 /* Lambert.metal in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A29101A69A246006E8DE6 /* Lambert.metal */; };
 		6B1A29281A69A246006E8DE6 /* MetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1A29121A69A246006E8DE6 /* MetalView.m */; };
-		6B26B27D1A84200100894BAC /* CastAudioAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B26B27C1A84200100894BAC /* CastAudioAlert.m */; };
 		6B4DDFE71A7717AE00ADD562 /* CastRemoteDisplaySupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B4DDFE61A7717AE00ADD562 /* CastRemoteDisplaySupport.m */; };
 		6BE301521B054255008EAAB9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BE301511B054255008EAAB9 /* LaunchScreen.xib */; };
 		EF1013F51B0E71A7008417E9 /* CastComponents.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF1013EE1B0E71A7008417E9 /* CastComponents.storyboard */; };
@@ -28,6 +27,7 @@
 		EF1013F81B0E71A7008417E9 /* DeviceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF1013F41B0E71A7008417E9 /* DeviceTableViewController.m */; };
 		EF1013FB1B0E78EF008417E9 /* CastFrameworkAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF1013FA1B0E78EF008417E9 /* CastFrameworkAssets.xcassets */; };
 		EF1013FE1B0E7E2D008417E9 /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF1013FD1B0E7E2D008417E9 /* InitialViewController.m */; };
+		EF90F6EE1B10294D002B1CD4 /* sound_new.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF90F6ED1B10294D002B1CD4 /* sound_new.mp3 */; };
 		EFB1CF771B0EAC1600AC2560 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFB1CF761B0EAC1600AC2560 /* GLKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,8 +54,6 @@
 		6B1A29101A69A246006E8DE6 /* Lambert.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Lambert.metal; sourceTree = "<group>"; };
 		6B1A29111A69A246006E8DE6 /* MetalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalView.h; sourceTree = "<group>"; };
 		6B1A29121A69A246006E8DE6 /* MetalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetalView.m; sourceTree = "<group>"; };
-		6B26B27B1A84200100894BAC /* CastAudioAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CastAudioAlert.h; sourceTree = "<group>"; };
-		6B26B27C1A84200100894BAC /* CastAudioAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CastAudioAlert.m; sourceTree = "<group>"; };
 		6B2DE9711A3FB413002E759D /* CastRemoteDisplayDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CastRemoteDisplayDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B4DDFE61A7717AE00ADD562 /* CastRemoteDisplaySupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CastRemoteDisplaySupport.m; sourceTree = "<group>"; };
 		6BE301511B054255008EAAB9 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -68,6 +66,7 @@
 		EF1013FA1B0E78EF008417E9 /* CastFrameworkAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = CastFrameworkAssets.xcassets; path = "../Pods/google-cast-sdk/GoogleCastSDK-2.7.0-Release/CastFrameworkAssets.xcassets"; sourceTree = "<group>"; };
 		EF1013FC1B0E7E2D008417E9 /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialViewController.h; sourceTree = "<group>"; };
 		EF1013FD1B0E7E2D008417E9 /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
+		EF90F6ED1B10294D002B1CD4 /* sound_new.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound_new.mp3; sourceTree = "<group>"; };
 		EFB1CF761B0EAC1600AC2560 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -89,7 +88,6 @@
 			children = (
 				EF1013ED1B0E6F98008417E9 /* Components */,
 				6B1A29021A69A246006E8DE6 /* Views */,
-				6B26B27A1A84200100894BAC /* Audio */,
 				6B1A28F11A69A246006E8DE6 /* AppDelegate.h */,
 				6B1A28F21A69A246006E8DE6 /* AppDelegate.m */,
 				6B1A28F51A69A246006E8DE6 /* CastRemoteDisplaySupport.h */,
@@ -105,8 +103,8 @@
 		6B1A28F91A69A246006E8DE6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EFB1CF781B0EC51A00AC2560 /* Sounds */,
 				EF1013FA1B0E78EF008417E9 /* CastFrameworkAssets.xcassets */,
-				EF1013F91B0E755E008417E9 /* Images */,
 				6B1A28F61A69A246006E8DE6 /* main.m */,
 				6B1A29001A69A246006E8DE6 /* Images.xcassets */,
 				6B1A29011A69A246006E8DE6 /* Info.plist */,
@@ -150,15 +148,6 @@
 			path = Metal;
 			sourceTree = "<group>";
 		};
-		6B26B27A1A84200100894BAC /* Audio */ = {
-			isa = PBXGroup;
-			children = (
-				6B26B27B1A84200100894BAC /* CastAudioAlert.h */,
-				6B26B27C1A84200100894BAC /* CastAudioAlert.m */,
-			);
-			path = Audio;
-			sourceTree = "<group>";
-		};
 		6B2DE9681A3FB413002E759D = {
 			isa = PBXGroup;
 			children = (
@@ -199,11 +188,12 @@
 			name = Components;
 			sourceTree = "<group>";
 		};
-		EF1013F91B0E755E008417E9 /* Images */ = {
+		EFB1CF781B0EC51A00AC2560 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				EF90F6ED1B10294D002B1CD4 /* sound_new.mp3 */,
 			);
-			name = Images;
+			name = Sounds;
 			sourceTree = "<group>";
 		};
 		FDE83BB1917479F3B2A7F801 /* Pods */ = {
@@ -280,6 +270,7 @@
 				6B1A291D1A69A246006E8DE6 /* Images.xcassets in Resources */,
 				6BE301521B054255008EAAB9 /* LaunchScreen.xib in Resources */,
 				EF1013FB1B0E78EF008417E9 /* CastFrameworkAssets.xcassets in Resources */,
+				EF90F6EE1B10294D002B1CD4 /* sound_new.mp3 in Resources */,
 				6B1A29241A69A246006E8DE6 /* Lambert.vsh in Resources */,
 				EF1013F51B0E71A7008417E9 /* CastComponents.storyboard in Resources */,
 			);
@@ -333,7 +324,6 @@
 				EF1013FE1B0E7E2D008417E9 /* InitialViewController.m in Sources */,
 				6B1A291F1A69A246006E8DE6 /* CubeRendering.cc in Sources */,
 				6B1A29281A69A246006E8DE6 /* MetalView.m in Sources */,
-				6B26B27D1A84200100894BAC /* CastAudioAlert.m in Sources */,
 				6B1A29191A69A246006E8DE6 /* RootViewController.m in Sources */,
 				6B1A29161A69A246006E8DE6 /* AppDelegate.m in Sources */,
 				6B1A29271A69A246006E8DE6 /* Lambert.metal in Sources */,

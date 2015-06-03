@@ -1,39 +1,33 @@
-# Google Cast Remote Display SDK EAP
-_April 24 2015 release_
+# CastRemoteDisplay-iOS
 
-Sample code to demonstrate how to send UIKit, OpenGL ES or Metal content to a Google Cast receiver via Remote Display.
+This Google Cast sample application shows how to use the Remote Display API.
 
-**THIS IS VERY EARLY SAMPLE CODE. IT MAY NOT CONTAIN UP TO DATE OR ACCURATE INFORMATION. NOTHING IS FINAL, INCLUDING APIS AND FEATURES.**
+## Dependencies
+* google-cast-sdk 2.7.0 or greater
+* google-cast-remote-display-sdk 2.7.0 or greater
+* The Amazing Audio Engine (theamazingaudioengine.com) 1.4 or greater
 
-### Release notes
-**April 25, 2015**
-- The Remote Display SDK is now a static library. The previous method of integration no longer applies.
-- Media streams are now encrypted.
-- Backgrounding is supported. See GCKRemoteDisplayChannel.h.
-- The core SDK no longer contains any Remote Display functionality.
-- GCKRemoteDisplaySessionManager is gone. All functionality has been subsumed by GCKRemoteDisplayChannel.
-- Sender apps are now responsible for launching their own Remote Display receiver app using the core SDK. The included sample code demonstrates how to do this. **For the EAP program only, use C01EB1F7. This App ID will stop working after the program concludes.**
+All can be installed using [https://guides.cocoapods.org/using/getting-started.html#getting-started](Cocoapods).
 
-### Installing the SDKs
+## Setup Instructions
+* Check out the code from GitHub
+* run `pod install` in the checkout (don't have Cocoapods? Learn more at https://developers.google.com/ios/cocoapods)
+* Create a new app ID for a Remote Display Receiver using the Google Cast SDK Developer Console: https://cast.google.com/publish/
+* Add the app ID to the AppDelegate as the value of `kCastApplicationID`
+* Run the app on your mobile device
+* Select a Google Cast device as a remote display by clicking on the "Play" button
 
--  Expand the Google Cast SDK and place the framework and asset bundle in the GoogleCastSDK folder.
--  Expand the Google Cast Remote Display SDK and place the framework in the GoogleCastRemoteDisplaySDK folder.
+## References and How to report bugs
+* Cast APIs: https://developers.google.com/cast/
+* Design Checklist: https://developers.google.com/cast/docs/design_checklist
+* Remote Display API: https://developers.google.com/cast/docs/reference/
+* If you find any issues, please open a bug here on GitHub
 
-### Requirements
+## How to make contributions?
+Please read and follow the steps in the CONTRIBUTING.md
 
-Google Cast Remote Display requires iOS 8.0 or later because it relies on hardware accelerated video and audio encoding. However, your application is not required to be restricted to iOS 8 even if it supports Remote Display.
+## License
+See LICENSE
 
-A Remote Display receiver App ID is required. It can be shared across Android, iOS and Chrome clients if desired. The Google Cast Developer Portal will allow creating Remote Display App IDs in the future.
-
-### Integration
-
-You must link the Google Cast Remote Display framework SDK as well as the core Google Cast SDK in your app. Since they are both static libraries, only the required symbols and architectures will be included in the final app binary. You must also include the core SDK's asset bundle.
-
-The app must also link required system libraries and frameworks, which include libsqlite3, AudioToolbox, CoreMedia, CoreVideo, QuartzCore and VideoToolbox. These system dependencies can be weak linked.
-
-### Future improvements
-
-- Provide additional APIs for audio buffer submission based on AVPCMAudioBuffer.
-- Provide additional APIs to enqueue YCbCr video buffers directly.
-- Improve performance of RGB to YCbCr conversion.
-- Simplify the GCKRemoteDisplayConfiguration class significantly.
+## Google+
+Google Cast Developers Community on Google+ [http://goo.gl/TPLDxj](http://goo.gl/TPLDxj)

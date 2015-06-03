@@ -1,31 +1,28 @@
 //
-//  Copyright (c) Google Inc.
+// Copyright 2015 Google Inc. All Rights Reserved.
 //
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-//  http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 //
 
 #import "CastMetalViewController.h"
+#import "CubeRendering.h"
 
-#import <algorithm>
-
+#import <GoogleCastRemoteDisplay/GoogleCastRemoteDisplay.h>
 #import <Metal/Metal.h>
 #import <QuartzCore/CADisplayLink.h>
 #import <QuartzCore/CAMetalLayer.h>
 #import <UIKit/UIKit.h>
-
-#import <GoogleCastRemoteDisplay/GoogleCastRemoteDisplay.h>
-
-#import "CubeRendering.h"
+#import <algorithm>
 
 using namespace simd;
 using namespace cube_rendering;
@@ -113,8 +110,8 @@ const size_t kMaxBytesPerFrame = 1024 * 1024;
   _constantDataBufferIndex = 0;
   _inflight_semaphore = dispatch_semaphore_create(kMaxInflightBuffers);
 
-  [self _setupMetal];
-  [self _loadAssets];
+  [self setupMetal];
+  [self loadAssets];
 
   _timer = [CADisplayLink displayLinkWithTarget:self selector:@selector(update)];
   [_timer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
@@ -124,11 +121,13 @@ const size_t kMaxBytesPerFrame = 1024 * 1024;
   [_timer invalidate];
   _metalLayer.device = nil;
 
-  dispatch_semaphore_signal(_inflight_semaphore);
-  dispatch_semaphore_signal(_inflight_semaphore);
-  dispatch_semaphore_signal(_inflight_semaphore);
+  // Signal the semaphore back to its initial value before it may be deallocated,
+  // otherwise dispatch will assert.
+  for (int i = 0; i < kMaxInflightBuffers; i++) {
+    dispatch_semaphore_signal(_inflight_semaphore);
+  }
 
-  [self _teardownMetalForCast];
+  [self teardownMetalForCast];
 
   _rotation = 0;
 
@@ -149,14 +148,29 @@ const size_t kMaxBytesPerFrame = 1024 * 1024;
   [super viewDidDisappear:animated];
 }
 
-- (void)_setupMetal {
+- (BOOL)prefersStatusBarHidden {
+  return YES;
+}
+
+- (void)viewDidLayoutSubviews {
+  _layerSizeDidUpdate = YES;
+  [super viewDidLayoutSubviews];
+}
+
+/* 
+ * Setup the view for rendering to Metal. Defines basic queues and devices.
+ */
+- (void)setupMetal {
   _device = MTLCreateSystemDefaultDevice();
   _commandQueue = [_device newCommandQueue];
   _defaultLibrary = [_device newDefaultLibrary];
   _metalLayer.device = _device;
 }
 
-- (void)_loadAssets {
+/* 
+ * Load rendering assets. Allocate buffers, and define the render pipeline.
+ */
+- (void)loadAssets {
   // Allocate one region of memory for the uniform buffer.
   _dynamicConstantBuffer = [_device newBufferWithLength:kMaxBytesPerFrame options:0];
 
@@ -200,26 +214,20 @@ const size_t kMaxBytesPerFrame = 1024 * 1024;
   _renderPassDescriptor.depthAttachment.clearDepth = 1.0f;
 }
 
-- (BOOL)prefersStatusBarHidden {
-  return YES;
-}
 
-- (void)viewDidLayoutSubviews {
-  _layerSizeDidUpdate = YES;
-  [super viewDidLayoutSubviews];
-}
-
+/* 
+ * Called by the timer loop based on the refresh rate of the display.
+ */
 - (void)update {
   @autoreleasepool {
-    if (_layerSizeDidUpdate) {
-      [self _reshape];
-      _layerSizeDidUpdate = NO;
-    }
-    [self _render];
+    [self render];
   }
 }
 
-- (void)_reshape {
+/* 
+ * Update the metal view sized based on the screen dimensions change.
+ */
+- (void)reshape {
   auto view = self.view;
   auto viewSize = view.bounds.size;
   auto viewScale = view.window.screen.nativeScale;
@@ -243,12 +251,22 @@ const size_t kMaxBytesPerFrame = 1024 * 1024;
   }
 
   // CAST
-  if (_castInput) [self _reshapeCast];
+  if (_castInput) {
+    [self reshapeCast];
+  }
 }
 
-- (void)_render {
+/* 
+ * Render the scene for both first and second screens. 
+ */
+- (void)render {
+  if (_layerSizeDidUpdate) {
+    [self reshape];
+    _layerSizeDidUpdate = NO;
+  }
+
   // Update the scene.
-  [self _animate];
+  [self animate];
 
   // Update uniforms.
   _uniforms.mvp_mat = _projectionMatrix * _modelviewMatrix;
@@ -296,7 +314,9 @@ const size_t kMaxBytesPerFrame = 1024 * 1024;
   [commandBuffer presentDrawable:drawable];
 
   // CAST
-  if (_castInput) [self _renderCast:commandBuffer];
+  if (_castInput) {
+    [self renderCast:commandBuffer];
+  }
 
   // When the command buffer completes, signal the inflight semaphore to indicate we have buffer
   // space available for another frame.
@@ -312,7 +332,9 @@ const size_t kMaxBytesPerFrame = 1024 * 1024;
   [commandBuffer commit];
 }
 
-- (void)_animate {
+/*
+ * Update the cube position. */
+- (void)animate {
   auto model = matrix_from_translation(0.0f, 0.0f, 5.0f) *
                matrix_from_rotation(_rotation, 0.0f, 1.0f, 0.0f) *
                matrix_from_rotation(_rotation, 1.0f, 1.0f, 1.0f);
@@ -320,32 +342,41 @@ const size_t kMaxBytesPerFrame = 1024 * 1024;
   _rotation += 0.01f;
 }
 
-#pragma mark CAST
 
-@dynamic castRemoteDisplaySession;
+#pragma mark CAST
 
 - (GCKRemoteDisplaySession*)castRemoteDisplaySession {
   return _castInput.session;
 }
 
 - (void)setCastRemoteDisplaySession:(GCKRemoteDisplaySession*)castRemoteDisplaySession {
-  if (castRemoteDisplaySession == _castInput.session) return;
+  if (castRemoteDisplaySession == _castInput.session) {
+    return;
+  }
 
-  [self _teardownMetalForCast];
+  [self teardownMetalForCast];
 
-  if (castRemoteDisplaySession) [self _prepareMetalForCast:castRemoteDisplaySession];
+  if (castRemoteDisplaySession) {
+    [self prepareMetalForCast:castRemoteDisplaySession];
+  }
 }
 
-- (void)_prepareMetalForCast:(GCKRemoteDisplaySession*)session {
+/*
+ * Use the GCK Remote Display Metal frame input with the given session.
+ */
+- (void)prepareMetalForCast:(GCKRemoteDisplaySession*)session {
   _castInput = [[GCKMetalVideoFrameInput alloc] initWithSession:session];
   _castInput.device = _device;
 
-  [self _loadCastAssets];
+  [self loadCastAssets];
 
   _layerSizeDidUpdate = YES;
 }
 
-- (void)_loadCastAssets {
+/*
+ * Load cast rendering assets. Allocate buffers, and define the render pipeline.
+ */
+- (void)loadCastAssets {
   NSError* error = NULL;
 
   auto videoWidth = _castInput.width;
@@ -383,7 +414,7 @@ const size_t kMaxBytesPerFrame = 1024 * 1024;
   _castPassDesc.depthAttachment.texture = _castDepthTex;
 }
 
-- (void)_teardownMetalForCast {
+- (void)teardownMetalForCast {
   _castInput = nil;
   _castBGRATex = nil;
   _castDepthTex = nil;
@@ -391,17 +422,23 @@ const size_t kMaxBytesPerFrame = 1024 * 1024;
   _castPassDesc = nil;
 }
 
-- (void)_reshapeCast {
+/* 
+ * Size output to Cast display size.
+ */
+- (void)reshapeCast {
   auto width = _castInput.width;
   auto height = _castInput.height;
   float aspect = std::abs(static_cast<float>(width) / static_cast<float>(height));
   _castProjectionMatrix = matrix_from_perspective(65.0f * (M_PI / 180.0f), aspect, 0.1f, 100.0f);
 }
 
-- (void)_renderCast:(id<MTLCommandBuffer>)commandBuffer {
+/*
+ * Cast specific rendering code.
+ */
+- (void)renderCast:(id<MTLCommandBuffer>)commandBuffer {
   // The Cast input holds the session weakly. If the session is nil, tear down.
   if (!_castInput.session) {
-    [self _teardownMetalForCast];
+    [self teardownMetalForCast];
     return;
   }
 

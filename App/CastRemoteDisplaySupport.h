@@ -1,4 +1,5 @@
-// Copyright Google Inc.
+//
+// Copyright 2015 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,6 +12,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
 
 #import <Foundation/NSString.h>
 
@@ -19,9 +21,11 @@
 extern NSString* const CastRemoteDisplayAvailableNotification;
 
 @protocol CastRemoteDisplayDemoController
+
 /**
- *  The current GCKRemoteDisplaySession, to be used for sending audio and video 
+ *  The current GCKRemoteDisplaySession, to be used for sending audio and video
  *  frames to the cast device.
  */
 @property(nonatomic, weak) GCKRemoteDisplaySession* castRemoteDisplaySession;
+
 @end

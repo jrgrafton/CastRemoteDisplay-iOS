@@ -1,17 +1,17 @@
 //
-//  Copyright (c) Google Inc.
+// Copyright 2015 Google Inc. All Rights Reserved.
 //
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-//  http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 //
 
 #import <GoogleCast/GoogleCast.h>
@@ -28,12 +28,13 @@
 /**
  *  Outlet for the Play button on the home screen.
  */
-@property (weak, nonatomic) IBOutlet UIButton *playButton;
+@property(weak, nonatomic) IBOutlet UIButton *playButton;
 
 /**
  *  Outlet for the activity indicator when scanning.
  */
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property(weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 @end
 
 @implementation InitialViewController
@@ -46,6 +47,7 @@
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   [self updateButtonDisplay];
+  // Listen for updates to the Cast status. See ChromecastDeviceManager.h.
   [[NSNotificationCenter defaultCenter]
       addObserver:self
          selector:@selector(updateButtonDisplay)
@@ -53,12 +55,10 @@
            object:nil];
 }
 
-
 - (void)viewWillDisappear:(BOOL)animated {
   [super viewWillDisappear:animated];
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 # pragma mark - UI 
 
@@ -78,6 +78,9 @@
   [[ChromecastDeviceController sharedInstance] chooseDevice:self];
 }
 
+- (IBAction)unwindToThisViewController:(UIStoryboardSegue *)unwindSegue {
+}
+
 # pragma mark - ChromecastDeviceControllerDelegate
 
 - (void)didConnectToDevice:(GCKDevice *)device {
@@ -85,20 +88,20 @@
   [_activityIndicator startAnimating];
   ChromecastDeviceController *deviceController = [ChromecastDeviceController sharedInstance];
 
-  // Try to initialise the streaming session.
+  // Try to initialise the Remote Display session.
   deviceController.remoteDisplayChannel = [[GCKRemoteDisplayChannel alloc] init];
   deviceController.remoteDisplayChannel.delegate = self;
   [deviceController.deviceManager addChannel:deviceController.remoteDisplayChannel];
 }
 
+- (void)didDisconnect {
+  [self updateButtonDisplay];
+}
+
 #pragma mark - GCKRemoteDisplayChannelDelegate
 
-// TODO: check request ID on launch applicaiton, reset if so:
-//if (requestID == kGCKInvalidRequestID) [self _resetCast];
-
-
 - (void)remoteDisplayChannelDidConnect:(GCKRemoteDisplayChannel*)channel {
-  GCKRemoteDisplayConfiguration* configuration = [GCKRemoteDisplayConfiguration new];
+  GCKRemoteDisplayConfiguration* configuration = [[GCKRemoteDisplayConfiguration alloc] init];
   configuration.videoStreamDescriptor.frameRate = GCKRemoteDisplayFrameRate60p;
 
   if (![channel beginSessionWithConfiguration:configuration error:NULL]) {
@@ -118,6 +121,7 @@
 - (void)remoteDisplayChannel:(GCKRemoteDisplayChannel*)channel
  deviceRejectedConfiguration:(GCKRemoteDisplayConfiguration*)configuration
                        error:(NSError*)error {
+  [[ChromecastDeviceController sharedInstance] disconnect];
   [self updateButtonDisplay];
 }
 

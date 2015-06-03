@@ -1,4 +1,5 @@
-// Copyright Google Inc.
+//
+// Copyright 2015 Google Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,20 +12,26 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
 
 #import "AppDelegate.h"
-#import "ChromecastDeviceController.h"
 #import "CastRemoteDisplaySupport.h"
+#import "ChromecastDeviceController.h"
 
 #import <GoogleCastRemoteDisplay/GCKRemoteDisplayChannel.h>
+
+// Add a Cast Remote Display Receiver application ID below to enable the application.
+// You can register one at https://cast.google.com/publish/
+static NSString * const kCastApplicationID = @"YOUR_CAST_APPLICATION_ID";
+#warning Add your application ID above (and you can delete this #warning after)!
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(UIApplication*)application {
   [[ChromecastDeviceController sharedInstance] enableLogging];
+
   // Set the receiver application ID to initialise scanning.
-  // TODO(ianbarber): Remove before release to encourage registering own app.
-  [ChromecastDeviceController sharedInstance].applicationID = @"C01EB1F7";
+  [ChromecastDeviceController sharedInstance].applicationID = kCastApplicationID;
 
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
     // Test whether we can use remote display. Because this may take some time,

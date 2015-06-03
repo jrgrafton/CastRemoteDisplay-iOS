@@ -118,4 +118,9 @@ extern NSString * const kCastViewController;
  */
 - (void)chooseDevice:(UIViewController *)sender;
 
+/**
+ * Disconnect and stop the application.
+ */
+- (void)disconnect;
+
 @end

@@ -43,6 +43,11 @@ NSString * const kCastViewController = @"castViewController";
  */
 @property(nonatomic) BOOL isReconnecting;
 
+/**
+ * Store the session ID for disconnecting.
+ */
+@property(nonatomic) NSString *sessionID;
+
 @end
 
 @implementation ChromecastDeviceController
@@ -115,13 +120,21 @@ NSString * const kCastViewController = @"castViewController";
 # pragma mark - GCKDeviceManagerDelegate
 
 - (void)deviceManagerDidConnect:(GCKDeviceManager *)deviceManager {
-  if (!self.isReconnecting
-      || ![deviceManager.applicationMetadata.applicationID isEqualToString:_applicationID]) {
-    [self.deviceManager launchApplication:_applicationID];
-  } else {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString* lastSessionID = [defaults valueForKey:@"lastSessionID"];
-    [self.deviceManager joinApplication:_applicationID sessionID:lastSessionID];
+  // If we found a device that we were previously connected to (and had not explicitly disconnected
+  // from), check whether it is either idle or running our application (for when a previous session
+  // had not timed out. If these things are not true, just disconnect and wait for a manual choice.
+  if (_isReconnecting &&
+      deviceManager.applicationMetadata &&
+      deviceManager.applicationMetadata.applicationID != self.applicationID) {
+    [deviceManager disconnect];
+    self.isReconnecting = NO;
+    return;
+  }
+  // We are the source of all state, so just re-launch the application if reconnecting.
+  [self.deviceScanner stopScan];
+  NSInteger requestID = [self.deviceManager launchApplication:_applicationID];
+  if (requestID == kGCKInvalidRequestID) {
+    [deviceManager disconnect];
   }
 }
 
@@ -137,11 +150,12 @@ didConnectToCastApplication:(GCKApplicationMetadata *)applicationMetadata
   }
 
   self.isReconnecting = NO;
-  // Store sessionID in case of restart
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  [defaults setObject:sessionID forKey:@"lastSessionID"];
   [defaults setObject:deviceManager.device.deviceID forKey:@"lastDeviceID"];
   [defaults synchronize];
+
+  // Store session ID for disconnect.
+  self.sessionID = sessionID;
 }
 
 - (void)deviceManager:(GCKDeviceManager *)deviceManager
@@ -164,6 +178,12 @@ didConnectToCastApplication:(GCKApplicationMetadata *)applicationMetadata
       error.code == GCKErrorCodeApplicationNotFound)) {
     [self clearPreviousSession];
   }
+
+  if (_delegate && [_delegate respondsToSelector:@selector(didDisconnect)]) {
+    [_delegate didDisconnect];
+  }
+
+  [self.deviceScanner startScan];
 }
 
 - (void)deviceManager:(GCKDeviceManager *)deviceManager
@@ -185,6 +205,8 @@ didConnectToCastApplication:(GCKApplicationMetadata *)applicationMetadata
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   [defaults removeObjectForKey:@"lastDeviceID"];
   [defaults synchronize];
+  self.sessionID = nil;
+  [_deviceScanner startScan];
 }
 
 # pragma mark - GCKDeviceScannerListener
@@ -226,6 +248,14 @@ didConnectToCastApplication:(GCKApplicationMetadata *)applicationMetadata
       [[GCKDeviceManager alloc] initWithDevice:device clientPackageName:appIdentifier];
   self.deviceManager.delegate = self;
   [self.deviceManager connect];
+}
+
+/**
+ * Disconnect and stop the application.
+ */
+- (void)disconnect {
+  [self.deviceManager stopApplicationWithSessionID:_sessionID];
+  [self.deviceManager disconnectWithLeave:YES];
 }
 
 #pragma mark - GCKLoggerDelegate implementation
