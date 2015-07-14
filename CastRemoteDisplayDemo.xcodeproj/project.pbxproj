@@ -63,7 +63,7 @@
 		EF1013F21B0E71A7008417E9 /* ChromecastDeviceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChromecastDeviceController.m; sourceTree = "<group>"; };
 		EF1013F31B0E71A7008417E9 /* DeviceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceTableViewController.h; sourceTree = "<group>"; };
 		EF1013F41B0E71A7008417E9 /* DeviceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceTableViewController.m; sourceTree = "<group>"; };
-		EF1013FA1B0E78EF008417E9 /* CastFrameworkAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = CastFrameworkAssets.xcassets; path = "../Pods/google-cast-sdk/GoogleCastSDK-2.7.0-Release/CastFrameworkAssets.xcassets"; sourceTree = "<group>"; };
+		EF1013FA1B0E78EF008417E9 /* CastFrameworkAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = CastFrameworkAssets.xcassets; path = "../Pods/google-cast-sdk/GoogleCastSDK-2.7.1-Release/CastFrameworkAssets.xcassets"; sourceTree = "<group>"; };
 		EF1013FC1B0E7E2D008417E9 /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialViewController.h; sourceTree = "<group>"; };
 		EF1013FD1B0E7E2D008417E9 /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
 		EF90F6ED1B10294D002B1CD4 /* sound_new.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound_new.mp3; sourceTree = "<group>"; };
